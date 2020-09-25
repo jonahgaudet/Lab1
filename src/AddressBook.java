@@ -2,6 +2,13 @@ import java.util.*;
 public class AddressBook {
     ArrayList<BuddyInfo> buddies;
 
+    public static void main(String[] args) {
+        BuddyInfo buddy = new BuddyInfo("Tom", 20, "123 Main Street", "6130123456");
+        AddressBook addressBook = new AddressBook();
+        addressBook.addBuddy(buddy);
+        addressBook.removeBuddy(buddy);
+    }
+
     public AddressBook () {
         ArrayList<BuddyInfo> buddies = new ArrayList<BuddyInfo>();
     }
