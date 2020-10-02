@@ -5,6 +5,7 @@ public class AddressBook {
     public static void main(String[] args) {
         BuddyInfo buddy = new BuddyInfo("Tom", 20, "123 Main Street", "6130123456");
         BuddyInfo buddy2 = new BuddyInfo("Jack", 56, "5 North road", "6136543210");
+        //Text added to test commit
         AddressBook addressBook = new AddressBook();
         addressBook.addBuddy(buddy);
         addressBook.addBuddy(buddy2);
@@ -21,11 +22,6 @@ public class AddressBook {
     }
 
     public void removeBuddy(BuddyInfo buddy) {
-        /*for (int i = 0; i < buddies.size(); i++) {
-            if (buddies.get(i) == buddy) {
-                buddies.remove(i);
-            }
-        }*/
         buddies.remove(buddy);
     }
 }
