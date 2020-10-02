@@ -24,4 +24,8 @@ public class AddressBook {
     public void removeBuddy(BuddyInfo buddy) {
         buddies.remove(buddy);
     }
+
+    public boolean isEmpty () {
+        return buddies.isEmpty();
+    }
 }
