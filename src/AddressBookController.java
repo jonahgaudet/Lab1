@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class AddressBookController implements ActionListener {
 
@@ -61,7 +60,7 @@ public class AddressBookController implements ActionListener {
                     addressBookModel.removeAt(buddyList.getSelectedIndex());
                 }
                 catch (Exception exception) {
-                    return;
+                    //
                 }
             }
         }

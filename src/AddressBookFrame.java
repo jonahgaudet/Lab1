@@ -1,16 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class AddressBookFrame extends JFrame implements AddressBookView {
 
-    public JPanel mainPanel;
-
-    public AddressBookModel addressBook;
-    public JLabel bookTitle;
-    public JList buddyList;
+    private JLabel bookTitle;
+    private JList buddyList;
 
     public AddressBookFrame () {
 
@@ -24,13 +18,12 @@ public class AddressBookFrame extends JFrame implements AddressBookView {
 
         bookTitle = new JLabel(abm.getName());
         bookTitle.setHorizontalAlignment(JLabel.CENTER);
-        mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(bookTitle, BorderLayout.PAGE_START);
         mainPanel.add(buddyList, BorderLayout.CENTER);
         add(mainPanel);
 
-        //In his
         JMenuBar menuBar = new JMenuBar();
         JMenu addressBookMenu = new JMenu("Address Book");
 
@@ -60,13 +53,12 @@ public class AddressBookFrame extends JFrame implements AddressBookView {
         this.setVisible(true);
     }
 
-    public String getProperListener () {
-        return Integer.toString(buddyList.getSelectedIndex());
-    }
-
     public void handleAddressBookUpdate(AddressBookEvent addressBookModel) {
         buddyList.clearSelection();
-        bookTitle.setText(addressBookModel.getName());
+        bookTitle.setText("Empty Name");
+        if (!addressBookModel.getName().equals(""))
+            bookTitle.setText(addressBookModel.getName());
+
         buddyList.setModel(addressBookModel.getBuddies());
     }
 
