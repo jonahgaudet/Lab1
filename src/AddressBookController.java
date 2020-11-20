@@ -18,57 +18,79 @@ public class AddressBookController implements ActionListener {
             return;
         String command = e.getActionCommand().split(" ")[0];
 
-        switch (command){
-            case "new":
-                    {
-                    String name = (String)JOptionPane.showInputDialog(
-                            null,
-                            "Name of the Address Book",
-                            "Name Input",
-                            JOptionPane.PLAIN_MESSAGE,
-                            null,
-                            null,
-                            "");
-
-                    addressBookModel.changeName(name);
-                    addressBookModel.clear();
-                    break;
+        switch (command) {
+            case "new" -> {
+                String name = (String) JOptionPane.showInputDialog(
+                        null,
+                        "Name of the Address Book",
+                        "Name Input",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "");
+                if (name == null || name.equals("")) {
+                    System.out.println("Must enter an actual name");
+                    return;
                 }
-            case "addBuddy":
-                {
-                    if (addressBookModel == null) {
-                        System.out.println("Have not created an address book yet");
-                        return;
-                    }
-                    JTextField name = new JTextField();
-                    JTextField address = new JTextField();
-                    JTextField phone = new JTextField();
-                    Object[] message = {
-                            "Name:", name,
-                            "Address:", address,
-                            "Phone:", phone
-                    };
+                addressBookModel.changeName(name);
+                addressBookModel.clear();
+                break;
+            }
+            case "addBuddy" -> {
+                if (addressBookModel == null) {
+                    System.out.println("Have not created an address book yet");
+                    return;
+                }
 
-                    int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
-                    if (option == JOptionPane.OK_OPTION) {
-                        addressBookModel.addBuddy(new BuddyInfo(name.getText(), address.getText(), phone.getText()));
+                try {
+                    int reply = JOptionPane.showConfirmDialog(null, "Create Buddy from import or separate fields?", "Buddy creation option", JOptionPane.YES_NO_OPTION);
+
+                    if (reply == JOptionPane.YES_OPTION) {
+                        String buddyDetails = JOptionPane.showInputDialog("Buddy details in format (name#address#phone number) : ");
+                        addressBookModel.importBuddy(buddyDetails);
                     } else {
-                        System.out.println("Buddy creation failed");
+                        JTextField name = new JTextField();
+                        JTextField address = new JTextField();
+                        JTextField phone = new JTextField();
+                        Object[] message = {
+                                "Name:", name,
+                                "Address:", address,
+                                "Phone:", phone
+                        };
+
+                        int option = JOptionPane.showConfirmDialog(null, message, "Login", JOptionPane.OK_CANCEL_OPTION);
+                        if (option == JOptionPane.OK_OPTION) {
+                            addressBookModel.addBuddy(new BuddyInfo(name.getText(), address.getText(), phone.getText()));
+                        } else {
+                            System.out.println("Buddy creation failed");
+                        }
                     }
-                    break;
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
                 }
-            case "removeBuddy":
-                {
-                    if (buddyList.getModel().getSize() == 0)
-                        return;
-                    try {
-                        addressBookModel.removeAt(buddyList.getSelectedIndex());
-                    }
-                    catch (Exception exception) {
-                        //
-                    }
-                    break;
+                break;
+            }
+            case "removeBuddy" -> {
+                if (buddyList.getModel().getSize() == 0)
+                    return;
+                try {
+                    addressBookModel.removeAt(buddyList.getSelectedIndex());
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
                 }
+                break;
+            }
+            case "saveBuddies" -> {
+                try {
+                    System.out.println("Saving...");
+                    String fileName = JOptionPane.showInputDialog("File Name: ");
+                    addressBookModel.save(fileName);
+                    System.out.println("Saved.");
+                } catch (Exception exception) {
+                    System.out.println(exception.getMessage());
+                }
+                break;
+            }
         }
     }
 }

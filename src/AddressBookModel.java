@@ -1,4 +1,7 @@
 import javax.swing.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.*;
 
 public class AddressBookModel extends DefaultListModel{
@@ -56,7 +59,21 @@ public class AddressBookModel extends DefaultListModel{
     public void getInfo () {
         System.out.println(name);
         for (int i = 0; i < buddies.size() ; i++) {
-            System.out.println(buddies.get(i).name);
+            System.out.println(buddies.get(i).getInfo());
         }
     }
+
+    public void importBuddy (String buddyDetails) {
+        buddies.addElement(BuddyInfo.importBuddy(buddyDetails));
+    }
+
+    public void save (String fileName) throws IOException {
+            FileWriter fileWriter = new FileWriter(fileName);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            for (Object b : buddies.toArray()) {
+                printWriter.println(b);
+            }
+            printWriter.close();
+    }
+
 }

@@ -39,9 +39,14 @@ public class AddressBookFrame extends JFrame implements AddressBookView {
         removeBuddyInfo.addActionListener(abc);
         removeBuddyInfo.setActionCommand("removeBuddy");
 
+        JMenuItem saveToFile = new JMenuItem("Save Address Book");
+        saveToFile.addActionListener(abc);
+        saveToFile.setActionCommand("saveBuddies");
+
         addressBookMenu.add(createAddressBook);
         addressBookMenu.add(addBuddyInfo);
         addressBookMenu.add(removeBuddyInfo);
+        addressBookMenu.add(saveToFile);
 
         menuBar.add(addressBookMenu);
 
